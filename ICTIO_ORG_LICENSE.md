@@ -1,6 +1,6 @@
 # Ictio Data Access
 
-##Terms of Use
+## Terms of Use
 
 This content has been translated to other languages, in the case of any divergence of
 interpretation this version will prevail.
@@ -89,7 +89,7 @@ content providers shall be responsible or liable to any person, firm, or corpora
 damage, injury, claim, or liability of any kind or character based on or resulting from any use of
 any Ictio data.
 
-###Indemnification and Limitation of Liability
+### Indemnification and Limitation of Liability
 
 You agree to indemnify, defend, and hold harmless Cornell University, its trustees, officers,
 employees, and agents, from and against all losses, expenses, damages, and costs, including
@@ -99,7 +99,7 @@ special, consequential, punitive or exemplary damages, including but not limited
 loss of profits, goodwill, use, data or other intangible losses (even if Cornell has been advised of
 the possibility of such damages), resulting from your use of any Ictio data.
 
-###Errors and omissions
+### Errors and omissions
 
 The Cornell Lab of Ornithology endeavors to maintain accurate and up-to-date data at all times.
 However, if errors or omissions are identified, the user should notify the Cornell Lab of
