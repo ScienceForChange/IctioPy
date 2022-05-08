@@ -86,7 +86,7 @@ as usual:
 pip install ictiopy
 ```
 ## Usage
-- First, register and accout at ictio.org (don't forget to read [terms of use](https://ictio.org/public/Ictio_data_terms_en.pdf)).
+- First, register an accout at ictio.org (don't forget to read [terms of use](https://ictio.org/public/Ictio_data_terms_en.pdf)).
 - Second, [download data](https://ictio.org/download) and store zip file locally in your hard disk.
 - Finally, use this code in order to obtain a ready to use Pandas dataframe with Ictio's observation data:
 ```
