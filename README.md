@@ -94,6 +94,11 @@ import ictiopy
 pandas_dataframe = ictiopy.load_zipdb('path/to/Ictio_Basic_yyyymmdd.zip') 
 ```
 ## About Ictio.org
+<img src="https://github.com/ScienceForChange/IctioPy/raw/master/ictio_org.png" alt="drawing" width="240px"/>
+
+Ictio is a database and a mobile phone app created to register observations of caught fish in the Amazon basin. 
+It was developed as part of the _Citizen Science for the Amazon_ project, which aims to connect citizens in the collection and sharing of information on the most important Amazonian fish species. Its wider objective is for that information to contribute in understanding Amazonian fish migration.
+
 Ictio.org is a project of [The Cornell Lab of Ornitology](https://www.birds.cornell.edu/home). 
 Please, read [Ictio's terms of use](https://github.com/ScienceForChange/IctioPy/blob/master/ICTIO_ORG_LICENSE.md) before using its data.
 
