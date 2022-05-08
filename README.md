@@ -7,14 +7,14 @@ via public API nor public download, but it can be downloaded as a zip file after
 
 ## Features
 This module takes an Ictio_Basic zip file from ictio.org and performs the following tasks on it:
-- unzips its contents to a secure temporary folder
-- flattens decompressed file and folder structure to make file paths more predictable
-- autodetects the name of the observations file, which has a changing name based on the db generation date
-- verifies the existence of "taxa" file, containing a taxonomy of species in Amazon basin
-- loads observations and taxa files into dataframes
-- combines information from both dataframes into one, so observations are complemented with species data
-- sanitizes and curates the structure and the values 
-- and returns a curated dataframe with all relevant data ready to be analysed
+1. unzips its contents to a secure temporary folder
+2. flattens decompressed file and folder structure to make file paths more predictable
+3. autodetects the name of the observations file, which has a changing name based on the db generation date
+4. verifies the existence of "taxa" file, containing a taxonomy of species in Amazon basin
+5. loads observations and taxa files into dataframes
+6. combines information from both dataframes into one, so observations are complemented with species data
+7. sanitizes and curates the structure and the values 
+8. and returns a curated dataframe with all relevant data ready to be analysed
 
 The structure of the dataframe is as follows:
 
