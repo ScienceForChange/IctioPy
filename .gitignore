@@ -1,5 +1,6 @@
-/data desc.txt
-/info.txt
-/*.xlsx
-.venv
+data desc.txt
+info.txt
+*.xlsx
 test
+.idea
+.venv
