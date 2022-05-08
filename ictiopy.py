@@ -111,7 +111,7 @@ def merge_and_clean(bdb, taxa):
     return pretty_df
 
 
-def load_ictiozipdb(zipfilepath) -> object:
+def load_zipdb(zipfilepath) -> object:
     # Prepare folder
     data_folder = tempfile.mkdtemp()
     # Unzip with no folder structure, ignoring dotfiles... (very useful here)
@@ -128,5 +128,5 @@ def load_ictiozipdb(zipfilepath) -> object:
 
 
 if __name__ == '__main__':
-    print('Please, don\'t call this module directly. Use import and call load_ictiozipdb() instead.')
+    print('Please, don\'t call this module directly. Use import and call load_zipdb() instead.')
     exit(1)
