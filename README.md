@@ -3,7 +3,7 @@
 
 This python module provides helper routines for citizen scientists that want to load and analyse data from Ictio's
 citizen observatory for Amazon basin fish observation. The data from this Citizen Observatory is not freely available
-via public API, but it can be downloaded as a zip file that is updated periodically after registration in web page.
+via public API nor public download, but it can be downloaded as a zip file after registration in web page.
 
 ## Features
 This module takes an Ictio_Basic zip file from ictio.org and performs the following tasks on it:
