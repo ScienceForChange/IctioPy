@@ -1,5 +1,6 @@
 # Ictio Data Access
 ##Terms of Use
+
 This content has been translated to other languages, in the case of any divergence of
 interpretation this version will prevail.
 
@@ -76,6 +77,7 @@ Ithaca, NY, 14850, USA
 or via email to [ictio@cornell.edu](mailto://ictio@cornell.edu).
 
 ## Disclaimer
+
 The Cornell Lab of Ornithology makes no warranties or representations, express or implied, with
 regard to the correctness, reliability, or accuracy of any Ictio data, or otherwise. All Ictio data is
 provided “as-is.” The material and geographic designations in Ictio data do not imply the
@@ -87,6 +89,7 @@ damage, injury, claim, or liability of any kind or character based on or resulti
 any Ictio data.
 
 ###Indemnification and Limitation of Liability
+
 You agree to indemnify, defend, and hold harmless Cornell University, its trustees, officers,
 employees, and agents, from and against all losses, expenses, damages, and costs, including
 reasonable attorneys' fees, resulting from your violation of these Terms. You expressly
@@ -94,7 +97,9 @@ understand and agree Cornell University shall not be liable for any direct, indi
 special, consequential, punitive or exemplary damages, including but not limited to, damages for
 loss of profits, goodwill, use, data or other intangible losses (even if Cornell has been advised of
 the possibility of such damages), resulting from your use of any Ictio data.
+
 ###Errors and omissions
+
 The Cornell Lab of Ornithology endeavors to maintain accurate and up-to-date data at all times.
 However, if errors or omissions are identified, the user should notify the Cornell Lab of
 Ornithology so that they can be corrected in future releases of the data. Users can report errors
