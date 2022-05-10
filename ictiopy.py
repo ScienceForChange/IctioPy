@@ -77,8 +77,8 @@ def load_ictio_bdb_file(data_folder, file_name):
     without falling into despair. Thanks to fast_excel.read, it's taking 10 secs in functional testing.
     """
     srcpath = str(Path(data_folder).joinpath(file_name))
-    import fast_excel
-    df = fast_excel.read(srcpath)
+    from .fast_excel import read as fast_excel_read
+    df = fast_excel_read(srcpath)
     return df
 
 

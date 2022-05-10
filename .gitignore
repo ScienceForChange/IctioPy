@@ -4,3 +4,7 @@ info.txt
 test
 .idea
 .venv
+.vscode
+*.swp
+__pycache__
+*.egg-info
