@@ -90,7 +90,7 @@ pip install ictiopy
 - Second, [download data](https://ictio.org/download) and store zip file locally in your hard disk.
 - Finally, use this code in order to obtain a ready to use Pandas dataframe with Ictio's observation data:
 ```
-from ictipy import ictiopy
+from ictiopy import ictiopy
 pandas_dataframe = ictiopy.load_zipdb('path/to/Ictio_Basic_yyyymmdd.zip') 
 ```
 ## About Ictio.org
