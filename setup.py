@@ -21,5 +21,5 @@ setup(
     packages=["ictiopy"],
     package_dir={'ictiopy': '.'},
     include_package_data=True,
-    install_requires=["openpyxl", "pandas", "numpy"],
+    install_requires=["pandas", "numpy", "excel_fast_load"],
 )

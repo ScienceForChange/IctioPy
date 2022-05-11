@@ -1,3 +1,5 @@
-setuptools~=57.0.0
 pandas~=1.4.2
+ictiopy~=1.0.0
 numpy~=1.22.3
+setuptools~=57.0.0
+excel_fast_load~=1.0.0
