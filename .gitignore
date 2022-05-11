@@ -1,6 +1,7 @@
 data desc.txt
 info.txt
 *.xlsx
+*.csv
 test
 .idea
 .venv
