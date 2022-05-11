@@ -4,7 +4,7 @@ WD = pathlib.Path(__file__).parent
 README = (WD / "README.md").read_text()
 setup(
     name="ictiopy",
-    version="1.0.1",
+    version="1.0.2",
     description="Parse observations from ictio.org's Citizen Observatory",
     long_description=README,
     long_description_content_type="text/markdown",
