@@ -5,9 +5,7 @@ from pathlib import Path
 import pandas
 import numpy as np
 
-# Species taxonomy
-ictio_taxa_file = 'Ictio_Taxa.csv'
-# And the big database, which unfortunately has a changing name that we will have to infer on the go
+# The big database, which unfortunately has a changing name that we will have to infer on the go
 ictio_bdb_file = 'BDB_????????.xlsx'
 
 
@@ -16,56 +14,27 @@ class SanityException(BaseException):
 
 
 def unzip_db_to_folder(zipped_db_file, temp_folder):
-    # Modified version of zipfile.extract_all that flattens the folder structure of zip file contents
-    # This is needed because ictio's database contains a subfolder with ever changing name, making paths unpredictable
+    """
+    Modified version of zipfile.extract_all that only extracts files that start with "BDB_", with no folder struct.
+    This is needed because ictio's database contains a subfolder with ever changing name, as well as a
+    BDB_????????.xlsx file that also changes name, making paths unpredictable.
+    """
     import os
     import shutil
     with zipfile.ZipFile(zipped_db_file) as zip_file:
-        files_list = []
+        dbfound = False
         for member in zip_file.namelist():
             filename = os.path.basename(member)
-            # skip directories
-            if not filename:
-                continue
-            if os.path.basename(member).startswith('.'):  # omit some dotfile dirt that is present in ictio's database
-                continue
-            # copy file (taken from zipfile's extract)
-            source = zip_file.open(member)
-            target = open(os.path.join(temp_folder, filename), "wb")
-            with source, target:
-                shutil.copyfileobj(source, target)
-            files_list.append(os.path.basename(member))
-    return files_list  # Just for information purposes. Can be dismissed.
-
-
-def find_bdb_file(folder):
-    import glob
-    # search the name of the big db file
-    found_ictio_bdb_file = None
-    searching_bdb_file = glob.glob(str(Path(folder).joinpath(ictio_bdb_file)), recursive=False)
-    if len(searching_bdb_file) == 0:
-        print('ERROR: Data folder does not contain any observations file (BDB_########.xlsx)')
-        return None
-    if len(searching_bdb_file) > 1:  # unlikely to happen, that would be an weird error from ictio
-        print('Warning: Compressed zip file seems to have more than one observations file (BDB_########.xlsx)')
-        print('Returning the first file in lexicographic order.')
-    found_ictio_bdb_file = searching_bdb_file[0]
-    return found_ictio_bdb_file
-
-
-def check_data_folder_sanity(unzipped_db_folder):
-    # checks for the existence of well known static files that should be present in temp data folder
-    # returns the name of the unpredictable, name changing file BDB_########.xlsx found there
-    bdb_file = find_bdb_file(unzipped_db_folder)
-    if bdb_file is None:
+            if os.path.basename(member).startswith('BDB_'):  # We just want the big observations database file
+                source = zip_file.open(member)
+                target = open(os.path.join(temp_folder, 'observations.xlsx'), "wb")  # we store with a predictable name
+                with source, target:
+                    shutil.copyfileobj(source, target)
+                dbfound = True
+            else:
+                continue  # and we skip the rest
+    if not dbfound:
         raise SanityException('Compressed zip file does not seem to have an observations file (BDB_########.xlsx)')
-    if not Path.is_file(Path(unzipped_db_folder).joinpath(ictio_taxa_file)):
-        raise SanityException('Compressed zip file does not seem to have a taxonomy file (Ictio_Taxa.csv)')
-    return bdb_file
-
-
-def load_ictio_taxa_file(data_folder):
-    return pandas.read_csv(Path(data_folder).joinpath(ictio_taxa_file), header=0)
 
 
 def load_ictio_bdb_file(data_folder, file_name):
@@ -82,49 +51,37 @@ def load_ictio_bdb_file(data_folder, file_name):
     return df
 
 
-def merge_and_clean(bdb, taxa):
+def sanitizedb(bdb):
     """
-    Returns a pretty version of all the relevant data linked and flattened from BDB and TAXA dataframes
-    it uses a relationship between them:
-    observations.taxon_code <=> taxonomy.SPECIES_CODE
+    Returns a pretty version of all the relevant data from BDB dataframe
+    modifies dataframe INPLACE (return value can be used but it's not necessary)
     """
-    pretty_df = pandas.merge(bdb, taxa, how='left', left_on='taxon_code', right_on='SPECIES_CODE')
     # Change X by empty None in this field before casting to a nullable integer type
-    pretty_df['number_of_fish'] = pretty_df['number_of_fish'].replace('x', None)
+    bdb['number_of_fish'] = bdb['number_of_fish'].replace('x', None)
     # if you want integers and nulls at the same time in integer type columns, you need to cast them to Int64 type
     for column in ['number_of_fish', 'num_of_fishers']:
-        pretty_df[column] = pretty_df[column].astype('Int64')
+        bdb[column] = bdb[column].astype('Int64')
     # weight and price_local_currency are float
     for column in ['weight', 'price_local_currency']:
-        pretty_df[column] = pretty_df[column].astype(float)
-    pretty_df.columns = pretty_df.columns.str.lower()  # lowercase some fields like CATEGORY or FAMILY
-    # pick relevant columns discarding some others
-    pretty_df = pretty_df[['obs_id', 'user_id', 'obs_year', 'obs_month', 'obs_day', 'protocol_name',
-                           'watershed_code', 'watershed_name', 'port', 'location_type', 'country_name',
-                           'state_province_name', 'taxon_code', 'scientific_name', 'category', 'order1', 'family',
-                           'complete_checklist', 'number_of_fish', 'weight', 'price_local_currency', 'fishing_duration',
-                           'num_of_fishers']]
-    pretty_df = pretty_df.replace(np.nan, None, regex=True)  # remove NANs changing them for None
-    pretty_df = pretty_df.replace('', None, regex=True)  # remove empty strigns changing them for None
-    pretty_df['protocol_name'] = pretty_df['protocol_name'].str.replace('CitSci for the Amazon - ', '')  # Shorter protocols
-    pretty_df['complete_checklist'] = pretty_df['complete_checklist'].astype(bool)  # This field is boolean, not numeric
-    return pretty_df
+        bdb[column] = bdb[column].astype(float)
+    # this is basically a structure assertion and a minor reordering
+    bdb = bdb[['obs_id', 'weight', 'price_local_currency', 'obs_comments', 'upload_date_yyyymmdd',
+               'num_photos', 'user_id', 'checklist_id', 'protocol_name', 'complete_checklist', 'fishing_duration',
+               'submission_method', 'app_version', 'taxon_code', 'scientific_name', 'num_of_fishers', 'number_of_fish',
+               'obs_year', 'obs_month', 'obs_day', 'port', 'location_type', 'country_code', 'country_name',
+               'state_province_code', 'state_province_name', 'watershed_code', 'watershed_name']]
+    bdb = bdb.replace(np.nan, None, regex=True)  # remove NANs changing them for None
+    bdb = bdb.replace('', None, regex=True)  # remove empty strigns changing them for None
+    bdb['protocol_name'] = bdb['protocol_name'].str.replace('CitSci for the Amazon - ', '')  # Shorter protocols
+    bdb['complete_checklist'] = bdb['complete_checklist'].astype(bool)  # This field is boolean, not numeric
+    return bdb
 
 
 def load_zipdb(zipfilepath) -> object:
-    # Prepare folder
     data_folder = tempfile.mkdtemp()
-    # Unzip with no folder structure, ignoring dotfiles... (very useful here)
     unzip_db_to_folder(zipfilepath, data_folder)
-    # Check that zip contains necessary files, and detect the name of the changing one
-    bdb_file = check_data_folder_sanity(data_folder)
-    # Load taxa
-    taxa_data = load_ictio_taxa_file(data_folder)
-    # Load observations
-    bdb_data = load_ictio_bdb_file(data_folder, bdb_file)  # WARNING: SLOW (almost 20 secs)
-    # Merge them and prettify
-    final_df = merge_and_clean(bdb_data, taxa_data)
-    return final_df
+    bdb_data = load_ictio_bdb_file(data_folder, "observations.xlsx")  # WARNING: SLOW (almost 20 secs)
+    return sanitizedb(bdb_data)
 
 
 if __name__ == '__main__':
