@@ -41,12 +41,12 @@ def load_ictio_bdb_file(data_folder, file_name):
     # REMEMBER: unlike the rest, the BDB file changes its name so it needs to be passed here as file_name
     """
     Pandas reading from excel (pandas.read_excel()) is really, really slow.
-    We use FelixKling's alternative version of (fast_excel.read) in order to increase speed a bit.
+    We use FelixKling's alternative version in order to increase speed a bit.
     Programs using ictiopy will need to provide some sort of information message or warning, so the people waits a bit
     without falling into despair. Thanks to fast_excel.read, it's taking 10 secs in functional testing.
     """
     srcpath = str(Path(data_folder).joinpath(file_name))
-    from .fast_excel import read as fast_excel_read
+    from fast_excel import read as fast_excel_read
     df = fast_excel_read(srcpath)
     return df
 
