@@ -2,8 +2,8 @@
 import tempfile
 import zipfile
 from pathlib import Path
-import pandas
 import numpy as np
+from excel_fast_load import excel_fast_load
 
 # The big database, which unfortunately has a changing name that we will have to infer on the go
 ictio_bdb_file = 'BDB_????????.xlsx'
@@ -46,8 +46,7 @@ def load_ictio_bdb_file(data_folder, file_name):
     without falling into despair. Thanks to fast_excel.read, it's taking 10 secs in functional testing.
     """
     srcpath = str(Path(data_folder).joinpath(file_name))
-    from fast_excel import read as fast_excel_read
-    df = fast_excel_read(srcpath)
+    df = excel_fast_load(srcpath)
     return df
 
 
