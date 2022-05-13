@@ -91,6 +91,6 @@ Please visit [COS4CLOUD's web site](https://cos4cloud-eosc.eu) for more info on 
 ## About Science for Change
 <img src="https://www.scienceforchange.eu/wp-content/uploads/2021/06/Logos-SfC-color-2.png" width="240px"/>
 
-If you want to tackle a societal problem that requires data to be gathered and analysed, you can count on 
+If you want to tackle a social, environmental or health challenges that require data to be gathered and analysed, you can count on 
 Science for Change for designing, developing, creating a community around, or leverage data from a Citizen Observatory.
 [Contact Science for Change](mailto://hello@scienceforchange.eu) for an evaluation of your case.
